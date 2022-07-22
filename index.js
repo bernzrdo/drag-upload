@@ -173,7 +173,7 @@ class DragBox {
     /** @param {File[]} files */
     addFiles(files){
 
-        if(this.maxFiles == 1) this.removeFile(0);
+        if(this.maxFiles == 1) this.files = [];
         else{
             files.splice(this.maxFiles - this.files.length);
             if(files.length == 0) return;
