@@ -1,6 +1,6 @@
 {
-  "name": "drag-upload",
-  "version": "1.0.0-beta",
+  "name": "dragbox",
+  "version": "1.0.1-beta",
   "description": "Add a drag and drop field",
   "main": "index.js",
   "scripts": {
@@ -8,17 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bernzrdo/drag-upload.git"
+    "url": "git+https://github.com/bernzrdo/dragbox.git"
   },
   "keywords": [
-    "drag",
-    "and",
-    "drop"
+    "drag and drop"
   ],
   "author": "bernzrdo",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/bernzrdo/drag-upload/issues"
+    "url": "https://github.com/bernzrdo/dragbox/issues"
   },
-  "homepage": "https://github.com/bernzrdo/drag-upload#readme"
+  "homepage": "https://github.com/bernzrdo/dragbox#readme"
 }

@@ -1,5 +1,5 @@
 
-.drag-upload {
+.dragbox {
 
     width: 300px;
     height: 300px;
@@ -10,7 +10,7 @@
     cursor: pointer;
 }
 
-.drag-upload > .empty {
+.dragbox > .empty {
 
     display: flex;
     flex-direction: column;
@@ -23,16 +23,16 @@
 
 }
 
-.drag-upload > .empty > .hint-drag {
+.dragbox > .empty > .hint-drag {
     font-size: 1.2em;
 }
 
-.drag-upload > .empty > .hint-or {
+.dragbox > .empty > .hint-or {
     opacity: .7;
     font-size: .8em;
 }
 
-.drag-upload > .empty > .select-button {
+.dragbox > .empty > .select-button {
     font-size: 1em;
     font-family: inherit;
     cursor: pointer;
@@ -44,7 +44,7 @@
     box-shadow: 0px 5px 15px #0003;
 }
 
-.drag-upload > .files {
+.dragbox > .files {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -53,7 +53,7 @@
     height: calc(100% - 20px);
 }
 
-.drag-upload > .files > .file {
+.dragbox > .files > .file {
 
     display: flex;
     justify-content: space-between;
@@ -68,7 +68,7 @@
 
 }
 
-.drag-upload > .files > .file > .thumbnail {
+.dragbox > .files > .file > .thumbnail {
     
     width: 40px;
     height: 40px;
@@ -90,23 +90,23 @@
 
 }
 
-.drag-upload > .files > .file > .info {
+.dragbox > .files > .file > .info {
     flex-grow: 1;
     min-width: 0;
 }
 
-.drag-upload > .files > .file > .info > .name {
+.dragbox > .files > .file > .info > .name {
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.drag-upload > .files > .file > .info > .size {
+.dragbox > .files > .file > .info > .size {
     font-size: .8em;
     opacity: .5;
 }
 
-.drag-upload > .files > .file > .remove {
+.dragbox > .files > .file > .remove {
     color: #f55;
     background-color: transparent;
     border: 0;
@@ -119,21 +119,21 @@
     border-radius: 5px;
     transition: background-color .3s;
 }
-.drag-upload > .files > .file > .remove:hover { background-color: #f553 }
+.dragbox > .files > .file > .remove:hover { background-color: #f553 }
 
-.drag-upload > .files.single > .file {
+.dragbox > .files.single > .file {
     position: relative;
     padding: 0;
     height: 100%;
 }
 
-.drag-upload > .files.single > .file > .thumbnail {
+.dragbox > .files.single > .file > .thumbnail {
     width: 100%;
     height: 100%;
     border: 0;
 }
 
-.drag-upload > .files.single > .file > .info {
+.dragbox > .files.single > .file > .info {
 
     position: absolute;
     bottom: 0;
@@ -147,7 +147,7 @@
     
 }
 
-.drag-upload > .files.single > .file > .remove {
+.dragbox > .files.single > .file > .remove {
     position: absolute;
     top: 5px;
     right: 5px;

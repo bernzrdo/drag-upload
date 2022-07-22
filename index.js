@@ -1,5 +1,5 @@
 
-class DragUpload {
+class DragBox {
 
     /** @type {File[]} */ files;
     /** @type {HTMLDivElement} */ #element;
@@ -34,7 +34,7 @@ class DragUpload {
     /** @type {string[]} */ #objectURLs;
 
     /**
-     * DragUpload
+     * DragBox
      * 
      * @param {Element|string} element Element or selector
      * 
@@ -73,7 +73,7 @@ class DragUpload {
         // --- ELEMENT ---
 
         this.#element = typeof element == 'string' ? document.querySelector(element) : element;
-        this.#element.classList.add('drag-upload');
+        this.#element.classList.add('dragbox');
         this.#element.addEventListener('click', this.#click.bind(this));
         this.#element.innerHTML = '';
 
@@ -296,4 +296,4 @@ class DragUpload {
     }
 
 }
-module.exports = DragUpload;
+module.exports = DragBox;

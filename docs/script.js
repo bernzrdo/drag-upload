@@ -1,4 +1,4 @@
 
-const drag = new DragUpload('#drop', {
+const drag = new DragBox('#drop', {
     maxFiles: 1
 })
