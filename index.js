@@ -1,5 +1,5 @@
 
-class DragBox {
+class DragBox extends EventTarget {
 
     /** @type {File[]} */ files;
     /** @type {HTMLDivElement} */ #element;
@@ -25,11 +25,11 @@ class DragBox {
         this.#maxFiles = maxFiles;
     }
 
-    /** @type {string?} */ #post;
-    /** @type {string} */ #postName;
-
     /** @type {string} */ #iconFile;
     /** @type {string} */ #iconRemove;
+
+    /** @type {Function} */ #onAdd;
+    /** @type {Function} */ #onRemove;
 
     /** @type {string[]} */ #objectURLs;
 
@@ -43,23 +43,20 @@ class DragBox {
      * @param {string|string[]|null} param1.accept List of accepted mime types
      * @param {number?} param1.maxFiles Maximum number of files to accept
      * 
-     * @param {string?} param1.post URL to post to
-     * @param {string?} param1.postName Name of the file input
-     * 
      * @param {string?} param1.textDrag Text for drag and drop hint
      * @param {string?} param1.textOr Text for "or"
      * @param {string?} param1.textSelect Text for file select button
      * 
      * @param {string?} param1.iconFile Icon HTML for file
      * @param {string?} param1.iconRemove Icon HTML for remove
+     * 
+     * @param {Function?} param1.onAdd Function to call when files are added
+     * @param {Function?} param1.onRemove Function to call when files are removed
      */
     constructor(element, {
 
         accept = [],
         maxFiles = Infinity,
-
-        post = null,
-        postName = 'file',
 
         textDrag = 'Drag and drop here',
         textOr = 'or',
@@ -68,7 +65,11 @@ class DragBox {
         iconFile = '<i class="fa-regular fa-file"></i>',
         iconRemove = '<i class="fa-solid fa-xmark"></i>',
 
+        onAdd = ()=>{},
+        onRemove = ()=>{}
+
     } = {}){
+        super();
 
         // --- ELEMENT ---
 
@@ -128,11 +129,11 @@ class DragBox {
 
         // --- OPTIONS ---
 
-        this.#post = post;
-        this.#postName = postName;
-
         this.#iconFile = iconFile;
         this.#iconRemove = iconRemove;
+
+        this.#onAdd = onAdd;
+        this.#onRemove = onRemove;
 
         this.#objectURLs = [];
 
@@ -174,13 +175,12 @@ class DragBox {
     addFiles(files){
 
         if(this.maxFiles == 1) this.files = [];
-        else{
-            files.splice(this.maxFiles - this.files.length);
-            if(files.length == 0) return;
-        }
+        files.splice(this.maxFiles - this.files.length);
+        if(files.length == 0) return;
 
         this.files.push(...files);
-        if(this.#post) this.#postFiles(files); 
+        this.#onAdd(files);
+        this.dispatchEvent(new CustomEvent('add', { detail: { files} }))
         this.#render();
     }    
 
@@ -267,32 +267,10 @@ class DragBox {
     }
 
     removeFile(i){
-
-        if(this.#post){
-
-            const body = new FormData();
-            body.append(this.#postName, this.files[i].name);
-
-            fetch(this.#post, {method: 'DELETE', body})
-
-        }
-
+        this.#onRemove(this.files[i]);
+        this.dispatchEvent(new CustomEvent('remove', { detail: { files: this.files[i] } }))
         this.files.splice(i, 1);
         this.#render();
-    }
-
-    /** @param {File[]} files  */
-    #postFiles(files){
-
-        const body = new FormData();
-        if(this.maxFiles == 1) body.append(this.#postName, files[0]);
-        else{
-            for(let file of files)
-            body.append(this.#postName + '[]', file);
-        }
-
-        fetch(this.#post, { method: 'POST', body });
-
     }
 
 }
