@@ -41,17 +41,19 @@ class DragBox extends EventTarget {
      * @param {Object} param1 Options
      * 
      * @param {string|string[]|null} param1.accept List of accepted mime types
-     * @param {number?} param1.maxFiles Maximum number of files to accept
+     * @param {number?} param1.maxFiles Maximum number of files to accept. Setting to 1 makes preview different.
      * 
      * @param {string?} param1.textDrag Text for drag and drop hint
      * @param {string?} param1.textOr Text for "or"
      * @param {string?} param1.textSelect Text for file select button
      * 
      * @param {string?} param1.iconFile Icon HTML for file
-     * @param {string?} param1.iconRemove Icon HTML for remove
+     * @param {string?} param1.iconRemove Icon HTML for remove button
      * 
-     * @param {Function?} param1.onAdd Function to call when files are added
-     * @param {Function?} param1.onRemove Function to call when files are removed
+     * @param {Function?} param1.onAdd Callback when files are added
+     * @param {Function?} param1.onRemove Callback when files are removed
+     * 
+     * @param {string?} param1.inputName Name of input element
      */
     constructor(element, {
 
@@ -66,7 +68,9 @@ class DragBox extends EventTarget {
         iconRemove = '<i class="fa-solid fa-xmark"></i>',
 
         onAdd = ()=>{},
-        onRemove = ()=>{}
+        onRemove = ()=>{},
+
+        inputName = null
 
     } = {}){
         super();
@@ -100,6 +104,7 @@ class DragBox extends EventTarget {
             // --- Select ---
 
             const $selectButton = document.createElement('button');
+            $selectButton.type = 'button';
             $selectButton.classList.add('select-button');
             $selectButton.innerText = textSelect;
             $empty.appendChild($selectButton);
@@ -118,6 +123,7 @@ class DragBox extends EventTarget {
 
         this.#input = document.createElement('input');
         this.#input.type = 'file';
+        if(inputName != null) this.#input.name = inputName;
         this.accept = accept;
         this.maxFiles = maxFiles;
         this.#input.addEventListener('change', this.#change.bind(this));
