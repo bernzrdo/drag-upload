@@ -2,6 +2,8 @@
 
 Easily add a **drag and drop** field to your app!
 
+<img src="https://bernzrdo.wtf/dragbox.png" width="300">
+
 ## Installation
 
 ### HTML
