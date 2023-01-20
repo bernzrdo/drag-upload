@@ -1,6 +1,6 @@
 {
   "name": "dragbox",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Add a drag and drop field",
   "main": "index.js",
   "scripts": {
