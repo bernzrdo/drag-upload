@@ -35,7 +35,19 @@ new DragBox('.dragbox');
 | `options.iconRemove` | Icon HTML for remove button                                              | HTML              | `'<i class="fa-solid fa-xmark"></i>'`  |
 | `options.onAdd`      | Callback when files are added                                            | Function          | `()=>{}`                               |
 | `options.onRemove`   | Callback when files are removed                                          | Function          | `()=>{}`                               |
-| `options.inputName`  | Name of input element                                                    | String            | `null`                                 |
+
+## Access Input
+
+You can access the input element in two ways:
+
+```js
+let dragbox = new DragBox('.dragbox');
+dragbox.input; // HTMLInputElement
+```
+
+```js
+document.querySelector('.dragbox > input');
+```
 
 ## Styling
 

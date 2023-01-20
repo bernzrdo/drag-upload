@@ -3,7 +3,7 @@ class DragBox extends EventTarget {
 
     /** @type {File[]} */ files;
     /** @type {HTMLDivElement} */ #element;
-    /** @type {HTMLInputElement} */ #input;
+    /** @type {HTMLInputElement} */ input;
 
     /** @type {string[]} */ #accept;
     get accept(){ return this.#accept }
@@ -13,7 +13,7 @@ class DragBox extends EventTarget {
             if(accept == '') accept = [];
             else accept = accept.split(',');
         }
-        this.#input.accept = accept.join(',');
+        this.input.accept = accept.join(',');
         this.#accept = accept;
     }
 
@@ -21,7 +21,7 @@ class DragBox extends EventTarget {
     get maxFiles(){ return this.#maxFiles }
     /** @param {string|string[]} */
     set maxFiles(maxFiles){
-        this.#input.multiple = maxFiles > 1;
+        this.input.multiple = maxFiles > 1;
         this.#maxFiles = maxFiles;
     }
 
@@ -52,8 +52,6 @@ class DragBox extends EventTarget {
      * 
      * @param {Function?} param1.onAdd Callback when files are added
      * @param {Function?} param1.onRemove Callback when files are removed
-     * 
-     * @param {string?} param1.inputName Name of input element
      */
     constructor(element, {
 
@@ -69,8 +67,6 @@ class DragBox extends EventTarget {
 
         onAdd = ()=>{},
         onRemove = ()=>{},
-
-        inputName = null
 
     } = {}){
         super();
@@ -121,12 +117,13 @@ class DragBox extends EventTarget {
 
         // --- INPUT ---
 
-        this.#input = document.createElement('input');
-        this.#input.type = 'file';
-        if(inputName != null) this.#input.name = inputName;
+        this.input = document.createElement('input');
+        this.input.type = 'file';
         this.accept = accept;
         this.maxFiles = maxFiles;
-        this.#input.addEventListener('change', this.#change.bind(this));
+        this.input.addEventListener('change', this.#change.bind(this));
+        this.input.style.display = 'none';
+        this.#element.appendChild(this.input);
 
         // --- DRAG & DROP ---
 
@@ -147,13 +144,13 @@ class DragBox extends EventTarget {
 
     #click(){
         if(this.files.length < this.maxFiles)
-            this.#input.click();
+            this.input.click();
     }
 
     #change(){
-        const files = Array.from(this.#input.files);
+        const files = Array.from(this.input.files);
         this.addFiles(files);
-        this.#input.value = null;
+        this.input.value = null;
     }
 
     /** @param {DragEvent} e */
